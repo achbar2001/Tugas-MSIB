@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Pegawai</title>
+</head>
+<body>
+    <table border="1" cellpadding="10px">
+        <tr>
+            <th>No</th>
+            <th>Nama Pegawai</th>
+            <th>Jabatan</th>
+            <th>Gapok</th>
+            <th>Tunjangan Jabatan</th>
+            <th>Tunjangan Kesehatan</th>
+            <th>Gaji Kotor</th>
+            <th>Agama</th>
+            <th>Zakat Profesi</th>
+            <th>Take Home Pay</th>
+        </tr>
+        <script>
+            function calculate() {
+                let pegawaiData = [
+                    { nama: "Pegawai1", jabatan: "manager", gapok: 15000000 },
+                    { nama: "Pegawai2", jabatan: "manager", gapok: 15000000 },
+                    { nama: "Pegawai3", jabatan: "asisten manager", gapok: 10000000 },
+                    { nama: "Pegawai4", jabatan: "asisten manager", gapok: 10000000 },
+                    { nama: "Pegawai5", jabatan: "asisten manager", gapok: 10000000 },
+                    { nama: "Pegawai6", jabatan: "supervisor", gapok: 7000000 },
+                    { nama: "Pegawai7", jabatan: "supervisor", gapok: 7000000 },
+                    { nama: "Pegawai8", jabatan: "supervisor", gapok: 7000000 },
+                    { nama: "Pegawai9", jabatan: "staff", gapok: 4000000 },
+                    { nama: "Pegawai10", jabatan: "staff", gapok: 4000000 }
+                ];
+
+                let table = document.querySelector("table");
+                let totalZakatProfesi = 0;
+
+                for (let i = 0; i < pegawaiData.length; i++) {
+                    let pegawai = pegawaiData[i];
+                    let row = table.insertRow(-1);
+                    row.style.backgroundColor = i % 2 === 0 ? "orange" : "blue";
+
+                    let cellNo = row.insertCell(0);
+                    cellNo.innerHTML = i + 1;
+
+                    let cellNama = row.insertCell(1);
+                    cellNama.innerHTML = pegawai.nama;
+
+                    let cellJabatan = row.insertCell(2);
+                    cellJabatan.innerHTML = pegawai.jabatan;
+
+                    let cellGapok = row.insertCell(3);
+                    cellGapok.innerHTML = pegawai.gapok;
+
+                    let tunjanganJabatan = 0.2 * pegawai.gapok;
+                    let cellTunjanganJabatan = row.insertCell(4);
+                    cellTunjanganJabatan.innerHTML = tunjanganJabatan;
+
+                    let tunjanganKesehatan = 0.1 * pegawai.gapok;
+                    let cellTunjanganKesehatan = row.insertCell(5);
+                    cellTunjanganKesehatan.innerHTML = tunjanganKesehatan;
+
+                    let gajiKotor = pegawai.gapok + tunjanganJabatan + tunjanganKesehatan;
+                    let cellGajiKotor = row.insertCell(6);
+                    cellGajiKotor.innerHTML = gajiKotor;
+
+                    let agama = i % 2 === 0 ? "Muslim" : "Non Muslim";
+                    let cellAgama = row.insertCell(7);
+                    cellAgama.innerHTML = agama;
+
+                    let zakatProfesi = agama === "Muslim" && gajiKotor >= 7000000 ? 0.025 * gajiKotor : 0;
+                    let cellZakatProfesi = row.insertCell(8);
+                    cellZakatProfesi.innerHTML = zakatProfesi;
+
+                    totalZakatProfesi += zakatProfesi;
+
+                    let takeHomePay = gajiKotor - zakatProfesi;
+                    let cellTakeHomePay = row.insertCell(9);
+                    cellTakeHomePay.innerHTML = takeHomePay;
+                }
+
+                let totalRow = table.insertRow(-1);
+                let totalCell = totalRow.insertCell(0);
+                totalCell.colSpan = 8;
+                totalCell.innerHTML = "Total Zakat Profesi";
+
+                let totalZakatProfesiCell = totalRow.insertCell(1);
+                totalZakatProfesiCell.innerHTML = totalZakatProfesi.toFixed(2);
+            }
+
+            calculate();
+        </script>
+    </table>
+</body>
+</html>
