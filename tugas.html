@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Toko Online</title>
+</head>
+<body>
+    <!-- ini adalah form toko online  -->
+    <h1>Form Toko Online</h1>
+    <form id="tokoForm">
+        <label for="nama">Nama Pelanggan:</label>
+        <input type="text" id="nama" name="nama" required><br><br>
+        
+        <label for="produk">Pilih Produk:</label>
+        <select id="produk" name="produk">
+            <option value="">===== Pilihan =====</option>
+            <option value="TV">TV</option>
+            <option value="AC">AC</option>
+            <option value="Kulkas">Kulkas</option>
+        </select><br><br>
+        
+        <label for="jumlah">Jumlah Item Produk:</label>
+        <input type="number" id="jumlah" name="jumlah" required><br><br>
+        
+        <input type="button" value="Beli" name="proses" onclick="transaksi()">
+    </form>
+    <!-- end ini adalah form toko online  -->
+
+    <script>
+        function transaksi() {
+            let nama = document.getElementById("nama").value;
+            let produk = document.getElementById("produk").value;
+            let jumlah = parseInt(document.getElementById("jumlah").value);
+            let hargaSatuan = 0;
+            let diskon = 0;
+            let ppn = 0;
+            let hargaKotor = 0;
+            let hargaBayar = 0;
+
+            switch (produk) {
+                case "TV":
+                    hargaSatuan = 2000000;
+                    break;
+                case "AC":
+                    hargaSatuan = 3000000;
+                    break;
+                case "Kulkas":
+                    hargaSatuan = 4000000;
+                    break;
+                default:
+                    hargaSatuan = 0;
+            }
+
+            hargaKotor = hargaSatuan * jumlah;
+
+            if (produk === "Kulkas" && jumlah >= 3) {
+                diskon = 0.3 * hargaKotor;
+            } else if (produk === "AC" && jumlah >= 3) {
+                diskon = 0.2 * hargaKotor;
+            } else {
+                diskon = 0.1 * hargaKotor;
+            }
+
+            ppn = 0.1 * (hargaKotor - diskon);
+            hargaBayar = (hargaKotor - diskon) + ppn;
+
+            let pesan = "Nama Pelanggan: " + nama + "\n";
+            pesan += "Produk yang dibeli: " + produk + "\n";
+            pesan += "Harga Satuan: " + hargaSatuan + "\n";
+            pesan += "Jumlah Item Produk yang dibeli: " + jumlah + "\n";
+            pesan += "Harga Kotor: " + hargaKotor + "\n";
+            pesan += "Diskon: " + diskon + "\n";
+            pesan += "PPN: " + ppn + "\n";
+            pesan += "Harga Bayar: " + hargaBayar + "\n";
+
+            alert(pesan);
+        }
+    </script>
+</body>
+</html>
