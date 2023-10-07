@@ -1,0 +1,39 @@
+//Buat tabel pembelian
+CREATE TABLE pembelian (
+    tanggal DATE,
+    nomor VARCHAR(11),
+    produk_id INT,
+    jumlah INT,
+    harga DECIMAL(10, 2),
+    vendor_id INT,
+    PRIMARY KEY (nomor),
+    FOREIGN KEY (produk_id) REFERENCES produk(id),
+    FOREIGN KEY (vendor_id) REFERENCES vendor(id)
+);
+
+//buat tabel vendor
+CREATE TABLE vendor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nomor VARCHAR(20),
+    nama VARCHAR(230),
+    kota VARCHAR(230),
+    kontak VARCHAR(230)
+);
+
+//insert dengan memanggil nama kolom pembelian
+INSERT INTO pembelian (tanggal, nomor, produk_id, jumlah, harga, vendor_id)
+VALUES
+    ('07-10-2023', 'ABCD1', 1, 20, 500.00, 1),
+    ('08-10-2023', 'ABCD2', 2, 5, 250.00, 2),
+    ('09-10-2023', 'ABCD3', 3, 8, 400.00, 3),
+    ('10-10-2023', 'ABCD4', 1, 15, 750.00, 4),
+    ('11-10-2023', 'ABCD5', 4, 12, 600.00, 5);
+
+//insert dengan memanggil nama kolom vendor
+INSERT INTO vendor (nomor, nama, kota, kontak)
+VALUES
+    ('V001', 'Vendor A', 'Jakarta', 'Achbar'),
+    ('V002', 'Vendor B', 'Surabaya', 'Wahyudhi'),
+    ('V003', 'Vendor C', 'Bandung', 'Eko'),
+    ('V004', 'Vendor D', 'Yogyakarta', 'Edo'),
+    ('V005', 'Vendor E', 'Semarang', 'Son');
