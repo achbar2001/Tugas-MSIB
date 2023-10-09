@@ -1,0 +1,37 @@
+// table produk
+
+create table produk(
+    id int AUTO_INCREMENT PRIMARY key,
+    kode varchar(10) UNIQUE,
+    nama varchar(45) not null,
+    harga_beli double,
+    harga_jual double,
+    stok int(11),
+    min_stok int(11),
+    jenis_produk_id int not null REFERENCES pelanggan(id));
+
+// table pesanan items
+CREATE TABLE pesanan_items(
+    id int AUTO_INCREMENT PRIMARY key,
+    produk_id int not null REFERENCES pelanggan(id),
+    pesanan_id int not null REFERENCES pelanggan(id),
+    qty int(11),
+    harga double);
+
+// vendor
+CREATE TABLE vendor( 
+    id int AUTO_INCREMENT PRIMARY key, 
+    nomor varchar(4), 
+    nama varchar(40), 
+    kota varchar(30), 
+    kontak varchar(30));
+
+// table pembelian
+CREATE TABLE pembelian( 
+    id int AUTO_INCREMENT PRIMARY key, 
+    tanggal varchar(45), 
+    nomor varchar(10), 
+    produk_id int(11), 
+    jumlah int(11), 
+    harga double, 
+    vendor_id int(11));
